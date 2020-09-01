@@ -1,1 +1,19 @@
-<p>Are these items completed: {{ completed ? 'Yes' : 'No' }}</p>
+<mat-action-list>
+    <a mat-list-item >
+		<span matLine>Title</span>
+        <button
+            mat-icon-button
+            matTooltip="Mark as {{ completed ? 'Incomplete' : 'Complete'}}"
+            color="primary"
+            (click)="onAdd($event)">
+            <mat-icon>{{ completed ? 'undo' : 'done'}}</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            matTooltip="Remove Task"
+            color="warn"
+            (click)="onRemove($event)">
+            <mat-icon>delete</mat-icon>
+        </button>
+	</a>
+</mat-action-list>

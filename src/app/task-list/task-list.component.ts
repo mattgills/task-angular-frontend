@@ -13,4 +13,16 @@ export class TaskListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onAdd(e: Event) {
+    console.log('adding', e)
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+
+  onRemove(e: Event) {
+    console.log('removing', e)
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+
 }
