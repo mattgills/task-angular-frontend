@@ -1,4 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Task } from 'src/app/models/task.model';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer';
+import * as TaskActions from '../store/task.actions';
 
 @Component({
   selector: 'app-task-list',
@@ -6,23 +11,20 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+  tasks: Observable<{ tasks: Task[] }>;
   @Input() completed: Boolean;
 
-  constructor() { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.tasks = this.store.select('tasks');
   }
 
-  onAdd(e: Event) {
-    console.log('adding', e)
-    e.preventDefault();
-    e.stopImmediatePropagation();
+  onChangeStatus(id: string) {
+    console.log('changing status', id)
   }
 
-  onRemove(e: Event) {
-    console.log('removing', e)
-    e.preventDefault();
-    e.stopImmediatePropagation();
+  onRemove(id: string) {
+    console.log('removing', id)
   }
-
 }

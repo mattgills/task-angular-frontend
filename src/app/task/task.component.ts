@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskContainerComponent implements OnInit {
+export class TaskComponent implements OnInit {
 
   constructor() { }
 
