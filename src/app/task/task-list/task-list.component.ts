@@ -20,11 +20,18 @@ export class TaskListComponent implements OnInit {
     this.tasks = this.store.select('tasks');
   }
 
-  onChangeStatus(id: string) {
-    console.log('changing status', id)
+  onChangeStatus(task: Task) {
+    // Update the task to simply toggle the completed flag
+    const updatedTask = {
+      ...task,
+      completed: !task.completed
+    }
+    // Dispatch the update task action
+    this.store.dispatch(new TaskActions.UpdateTask(updatedTask));
   }
 
   onRemove(id: string) {
-    console.log('removing', id)
+    // Dispatch the delete task action
+    this.store.dispatch(new TaskActions.DeleteTask(id));
   }
 }

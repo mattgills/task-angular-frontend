@@ -9,7 +9,7 @@
                 mat-icon-button
                 matTooltip="Mark as {{ completed ? 'Incomplete' : 'Complete'}}"
                 color="primary"
-                (click)="onChangeStatus(task.id)">
+                (click)="onChangeStatus(task)">
                 <mat-icon>{{ completed ? 'undo' : 'done'}}</mat-icon>
             </button>
             <button
