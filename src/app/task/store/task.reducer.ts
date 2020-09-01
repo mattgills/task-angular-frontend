@@ -1,5 +1,6 @@
 import { Task } from '../../models/task.model';
 import * as TaskActions from './task.actions';
+import * as moment from 'moment';
 
 export interface State {
     tasks: Task[];
@@ -7,9 +8,9 @@ export interface State {
 
 const initialState: State = {
     tasks: [
-        new Task('5f4e71e036d62165d07ac475', 'Create Frontend', 'Using Angular', new Date(2020, 9, 1), false),
-        new Task('5f4e812a0b9f25470c97819a', 'Create Backend', 'Using Nest.js', new Date(2020, 9, 1), false),
-        new Task('5f4e812a0b9f25470c97819b', 'Create Database', 'Using Mongo', new Date(2020, 9, 1), true)
+        new Task('5f4e71e036d62165d07ac475', 'Create Frontend', 'Using Angular', moment().subtract(1, 'day').format('MM/DD/YYYY'), false),
+        new Task('5f4e812a0b9f25470c97819a', 'Create Backend', 'Using Nest.js', moment().format('MM/DD/YYYY'), false),
+        new Task('5f4e812a0b9f25470c97819b', 'Create Database', 'Using Mongo', moment().add(1, 'day').format('MM/DD/YYYY'), true)
     ]
 }
 

@@ -4,7 +4,8 @@
             mat-list-item
             *ngIf="task.completed === completed"
         >
-            <span matLine>{{ task.name }}</span>
+            <div matLine>{{ task.name }}</div>
+            <div matLine [ngStyle]="{'color': setStyleColor(task)}">{{ task.dueDate }} </div>
             <button
                 mat-icon-button
                 matTooltip="Mark as {{ completed ? 'Incomplete' : 'Complete'}}"

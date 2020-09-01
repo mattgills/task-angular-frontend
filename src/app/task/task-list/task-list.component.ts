@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as TaskActions from '../store/task.actions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-task-list',
@@ -33,5 +34,19 @@ export class TaskListComponent implements OnInit {
   onRemove(id: string) {
     // Dispatch the delete task action
     this.store.dispatch(new TaskActions.DeleteTask(id));
+  }
+
+  setStyleColor(task: Task) {
+    if (!task.completed) {
+      const dueDate = moment(task.dueDate, 'MM/DD/YYYY').startOf('day');
+      const startOfOverdue = moment().startOf('day');
+      const startOfUpcoming = moment().startOf('day').add(1, 'day');
+      if (dueDate.isBefore(startOfOverdue)) {
+        return 'red';
+      } else if (dueDate.isBefore(startOfUpcoming)) {
+        return 'orange';
+      }
+    }
+    return 'black';
   }
 }
