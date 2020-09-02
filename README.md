@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
 
+## Docker Deployment
+1. Run `docker build --rm -f Dockerfile -t task-angular-frontend:v1 .` to build container.
+2. Run `docker-compose up -d` to deploy container.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
