@@ -58,6 +58,24 @@ export class TaskEffects {
         })
     )
 
+    @Effect({ dispatch: false })
+    updateTaske = this.actions$.pipe(
+        ofType(TaskActions.UPDATE_TASK),
+        switchMap((taskData: TaskActions.AddTask) => {
+            return this.http
+                .put(
+                    `http://localhost:3000/tasks/${taskData.payload._id}`,
+                    {
+                        _id: taskData.payload._id,
+                        name: taskData.payload.name,
+                        description: taskData.payload.description,
+                        dueDate: taskData.payload.dueDate,
+                        completed: taskData.payload.completed
+                    }
+                )
+        })
+    )
+
     constructor(
         private actions$: Actions,
         private http: HttpClient,

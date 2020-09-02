@@ -13,8 +13,11 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <button mat-icon-button color="primary" [disabled]="!name.valid || !description.valid || !dueDate.valid" (click)="onAddTask()">
-                <mat-icon>add</mat-icon>
+            <button mat-icon-button color="primary" [disabled]="!name.valid || !description.valid || !dueDate.valid" (click)="onSubmitTask()">
+                <mat-icon>{{ selectedTask ? 'save' : 'add'}}</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" *ngIf="selectedTask" (click)="onCancelEdit()">
+                <mat-icon>close</mat-icon>
             </button>
         </div>
     </div>

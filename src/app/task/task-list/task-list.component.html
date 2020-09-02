@@ -2,10 +2,11 @@
     <div *ngFor="let task of (tasks | async).tasks">
         <a 
             mat-list-item
+            (click)="onSelectTask(task)"
             *ngIf="task.completed === completed"
         >
-            <div matLine>{{ task.name }}</div>
-            <div matLine [ngStyle]="{'color': setStyleColor(task)}">{{ task.dueDate }} </div>
+            <div matLine>{{ task.name }} - {{ task.description }}</div>
+            <div matLine [ngStyle]="{'color': setStyleColor(task)}">{{ task.dueDate }}</div>
             <button
                 mat-icon-button
                 matTooltip="Mark as {{ completed ? 'Incomplete' : 'Complete'}}"

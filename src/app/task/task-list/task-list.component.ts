@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from 'src/app/models/task.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as TaskActions from '../store/task.actions';
 import * as moment from 'moment';
+import { TaskService } from '../task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -15,7 +16,7 @@ export class TaskListComponent implements OnInit {
   tasks: Observable<{ tasks: Task[] }>;
   @Input() completed: Boolean;
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>, private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.tasks = this.store.select('tasks');
@@ -35,6 +36,10 @@ export class TaskListComponent implements OnInit {
     console.log('removing', id)
     // Dispatch the delete task action
     this.store.dispatch(new TaskActions.DeleteTask(id));
+  }
+
+  onSelectTask(task: Task) {
+    this.taskService.selectTask(task);
   }
 
   setStyleColor(task: Task) {
