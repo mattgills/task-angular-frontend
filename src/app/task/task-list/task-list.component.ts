@@ -40,7 +40,7 @@ export class TaskListComponent implements OnInit {
     if (!task.completed) {
       const dueDate = moment(task.dueDate, 'MM/DD/YYYY').startOf('day');
       const startOfOverdue = moment().startOf('day');
-      const startOfUpcoming = moment().startOf('day').add(1, 'day');
+      const startOfUpcoming = moment().startOf('day').add(2, 'day');
       if (dueDate.isBefore(startOfOverdue)) {
         return 'red';
       } else if (dueDate.isBefore(startOfUpcoming)) {

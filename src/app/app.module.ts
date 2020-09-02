@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Sub module imports
 import { MaterialModule } from './material/material.module';
@@ -27,6 +28,7 @@ import * as fromApp from './store/app.reducer';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MaterialModule,
     StoreModule.forRoot(fromApp.appReducer)
   ],
