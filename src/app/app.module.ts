@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { TaskComponent } from './task/task.component';
 import { TaskListComponent } from './task/task-list/task-list.component';
-import { EditTaskComponent } from './task/edit-task/edit-task.component';
 
 // Custom providers
 import { TaskService } from './task/task.service';
@@ -30,8 +29,7 @@ import { TaskEffects } from './task/store/task.effects';
     AppComponent,
     NavComponent,
     TaskComponent,
-    TaskListComponent,
-    EditTaskComponent
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
