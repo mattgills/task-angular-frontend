@@ -32,6 +32,7 @@ export class TaskListComponent implements OnInit {
   }
 
   onRemove(id: string) {
+    console.log('removing', id)
     // Dispatch the delete task action
     this.store.dispatch(new TaskActions.DeleteTask(id));
   }

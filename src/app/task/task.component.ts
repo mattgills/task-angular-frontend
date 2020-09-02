@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as TaskActions from './store/task.actions';
 import * as moment from 'moment';
+import { ObjectID } from 'bson';
 
 @Component({
   selector: 'app-task',
@@ -18,11 +19,13 @@ export class TaskComponent implements OnInit {
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new TaskActions.FetchTasks());
   }
 
   onAddTask() {
+    
     this.store.dispatch(new TaskActions.AddTask({
-      id: '123e12312312312',
+       _id: new ObjectID().toHexString(),
       name: this.name.value,
       description: this.description.value,
       dueDate: moment(this.dueDate.value, 'MM/DD/YYYY').startOf('day').format('MM/DD/YYYY'),

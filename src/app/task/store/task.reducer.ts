@@ -27,19 +27,17 @@ export function taskReducer(state = initialState, action: TaskActions.TaskAction
                 tasks: [...state.tasks, action.payload]
             }
         case TaskActions.UPDATE_TASK:
-            console.log('in reducer', action.payload)
             // Set the updated task to the original task, with overwritten properties
             const updatedTask = {
-                ...state.tasks.find(task => task.id === action.payload.id),
+                ...state.tasks.find(task => task._id === action.payload._id),
                 ...action.payload
             }
-            console.log('updated task', updatedTask)
             // Set the updated tasks list to be the original tasks list
             let updatedTasks = [...state.tasks];
             // Loop through the tasks list and update the task of interest
             // This should be re-evaluated since we only care about one element
             updatedTasks = updatedTasks.map(task => {
-                if (task.id === action.payload.id) {
+                if (task._id === action.payload._id) {
                     task = {
                         ...updatedTask
                     }
@@ -55,7 +53,7 @@ export function taskReducer(state = initialState, action: TaskActions.TaskAction
             return {
                 ...state,
                 tasks: state.tasks.filter(task => {
-                    return task.id !== action.payload;
+                    return task._id !== action.payload;
                 })
             }
         default:

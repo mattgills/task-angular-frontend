@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
 
 // Sub module imports
 import { MaterialModule } from './material/material.module';
@@ -17,6 +19,7 @@ import { TaskListComponent } from './task/task-list/task-list.component';
 // NGRX and store imports
 import { StoreModule } from '@ngrx/store';
 import * as fromApp from './store/app.reducer';
+import { TaskEffects } from './task/store/task.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import * as fromApp from './store/app.reducer';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ReactiveFormsModule,
+    EffectsModule.forRoot([TaskEffects]),
     MaterialModule,
     StoreModule.forRoot(fromApp.appReducer)
   ],
