@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Task } from 'src/app/models/task.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as TaskActions from '../store/task.actions';
 import * as moment from 'moment';
 import { TaskService } from '../task.service';
+import { Task } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-task-list',
@@ -15,6 +15,7 @@ import { TaskService } from '../task.service';
 export class TaskListComponent implements OnInit {
   tasks: Observable<{ tasks: Task[] }>;
   @Input() completed: Boolean;
+  @Input() filterValue: string;
 
   constructor(private store: Store<fromApp.AppState>, private taskService: TaskService) { }
 
@@ -40,6 +41,33 @@ export class TaskListComponent implements OnInit {
 
   onSelectTask(task: Task) {
     this.taskService.selectTask(task);
+  }
+
+  showTask(task: Task) {
+    // Immediately return true if there is no filter
+    if (this.filterValue === 'none') {
+      return true;
+    }
+    // This definition of moments is repetitive and should be refactored out (DRY)
+    const dueDate = moment(task.dueDate, 'MM/DD/YYYY').startOf('day');
+    const startOfOverdue = moment().startOf('day');
+    const startOfUpcoming = moment().startOf('day').add(2, 'day');
+    
+    // Check the scenario for the upcoming case
+    if (this.filterValue === 'upcoming') {
+      // If the due date is before the upcoming limit but not the overdue limit, then return true
+      if (dueDate.isBefore(startOfUpcoming) && !dueDate.isBefore(startOfOverdue)) {
+        return true;
+      }
+    }
+    if (this.filterValue === 'overdue') {
+      // If the due date is before the overdue limit, then return true
+      if (dueDate.isBefore(startOfOverdue)) {
+        return true;
+      }
+    }
+    // If none of the above passes, then return false
+    return false;
   }
 
   setStyleColor(task: Task) {

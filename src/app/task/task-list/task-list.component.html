@@ -3,7 +3,7 @@
         <a 
             mat-list-item
             (click)="onSelectTask(task)"
-            *ngIf="task.completed === completed"
+            *ngIf="task.completed === completed && showTask(task)"
         >
             <div matLine>{{ task.name }} - {{ task.description }}</div>
             <div matLine [ngStyle]="{'color': setStyleColor(task)}">{{ task.dueDate }}</div>

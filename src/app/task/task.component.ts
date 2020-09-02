@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
@@ -6,7 +6,6 @@ import * as TaskActions from './store/task.actions';
 import * as moment from 'moment';
 import { ObjectID } from 'bson';
 import { Subscription } from 'rxjs';
-import { TaskListComponent } from './task-list/task-list.component';
 import { Task } from '../models/task.model';
 import { TaskService } from './task.service';
 
@@ -16,12 +15,18 @@ import { TaskService } from './task.service';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit, OnDestroy {
+  // Define the subscription and selectedTask items, which are used to swap between the edit and add modes
   subscription: Subscription;
   selectedTask: Task;
 
+  // Define the form controls for the add and edit portion
   name = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(20)]);
   description = new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]);
   dueDate = new FormControl('', [Validators.required]);
+
+  // Define the form controls for the filtering options
+  filterDates = new FormControl('none');
+  filterValue: string = 'none';
 
   constructor(private store: Store<fromApp.AppState>, private taskService: TaskService) { }
 

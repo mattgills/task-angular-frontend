@@ -1,35 +1,43 @@
 <div class="row">
     <div class="col-md-6 offset-3">
-        <div>
-            <mat-form-field class="input-row">
-                <input matInput placeholder="Task Name" [formControl]="name" required>
-            </mat-form-field>
-            <mat-form-field  class="input-row">
-                <input matInput placeholder="Description" [formControl]="description" required>
-            </mat-form-field>
-            <mat-form-field  class="input-row">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [formControl]="dueDate" required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <button mat-icon-button color="primary" [disabled]="!name.valid || !description.valid || !dueDate.valid" (click)="onSubmitTask()">
-                <mat-icon>{{ selectedTask ? 'save' : 'add'}}</mat-icon>
-            </button>
-            <button mat-icon-button color="accent" *ngIf="selectedTask" (click)="onCancelEdit()">
-                <mat-icon>close</mat-icon>
-            </button>
-        </div>
+        <mat-form-field class="input-row">
+            <input matInput placeholder="Task Name" [formControl]="name" required>
+        </mat-form-field>
+        <mat-form-field  class="input-row">
+            <input matInput placeholder="Description" [formControl]="description" required>
+        </mat-form-field>
+        <mat-form-field  class="input-row">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="dueDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-icon-button color="primary" [disabled]="!name.valid || !description.valid || !dueDate.valid" (click)="onSubmitTask()">
+            <mat-icon>{{ selectedTask ? 'save' : 'add'}}</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" *ngIf="selectedTask" (click)="onCancelEdit()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <label>Date Filter: </label>
+        <mat-radio-group [formControl]="filterDates" [(ngModel)]="filterValue">
+            <mat-radio-button class="radio-button" value="none">None</mat-radio-button>
+            <mat-radio-button class="radio-button" value="upcoming">Today and/or Yesterday</mat-radio-button>
+            <mat-radio-button class="radio-button" value="overdue">Overdue</mat-radio-button>
+        </mat-radio-group>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6 offset-3">
         <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
             <mat-tab label="Active">
-                <app-task-list [completed]="false"></app-task-list>
+                <app-task-list [completed]="false" [filterValue]="filterValue"></app-task-list>
             </mat-tab>
             <mat-tab label="Completed">
-                <app-task-list [completed]="true"></app-task-list>
+                <app-task-list [completed]="true" [filterValue]="filterValue"></app-task-list>
             </mat-tab>
         </mat-tab-group>
     </div>
