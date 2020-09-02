@@ -1,0 +1,13 @@
+version: '2'
+services:
+  web:
+    container_name: ibm-task-angular
+    image: task-angular-frontend:v1
+    restart: always
+    ports:
+      - '80:80'
+    networks:
+      - ibm-network
+networks:
+  ibm-network:
+    external: true
