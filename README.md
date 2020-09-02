@@ -3,8 +3,8 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
 
 ## Docker Deployment
-1. Run `docker build --rm -f Dockerfile -t task-angular-frontend:v1 .` to build container.
-2. Run `docker-compose up -d` to deploy container.
+1. Run `docker build --rm -f Dockerfile -t task-angular-frontend:v1 .` to build container image.
+2. Run `docker-compose up -d` to deploy/run the container instance.
 
 ## Development server
 
