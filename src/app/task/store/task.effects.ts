@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap, catchError, map, tap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import * as moment from 'moment';
-
 import * as fromApp from '../../store/app.reducer';
 import * as TaskActions from './task.actions';
 import { Task } from '../../models/task.model';
