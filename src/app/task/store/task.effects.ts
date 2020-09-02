@@ -9,6 +9,8 @@ import * as TaskActions from './task.actions';
 import { Task } from '../../models/task.model';
 @Injectable()
 export class TaskEffects {
+    // This effect is used to add a document after an item has been added
+    // There is no additional action to dispatch, therefore dispatch: false is necessary
     @Effect({ dispatch: false })
     addTask = this.actions$.pipe(
         ofType(TaskActions.ADD_TASK),
@@ -27,6 +29,8 @@ export class TaskEffects {
         }),
     )
 
+    // This effect is used to obtain all documents
+    // Upon successful retrieval, all items dispatched via SetTasks
     @Effect()
     fetchTasks = this.actions$.pipe(
         ofType(TaskActions.FETCH_TASKS),
@@ -46,10 +50,12 @@ export class TaskEffects {
         })
     )
 
+    // This effect is used to delete the document after an item has been delete
+    // There is no additional action to dispatch, therefore dispatch: false is necessary
     @Effect({ dispatch: false })
     deleteTask = this.actions$.pipe(
         ofType(TaskActions.DELETE_TASK),
-        switchMap((taskData: TaskActions.AddTask) => {
+        switchMap((taskData: TaskActions.DeleteTask) => {
             return this.http
                 .delete(
                     `http://localhost:3000/tasks/${taskData.payload}`
@@ -57,15 +63,17 @@ export class TaskEffects {
         })
     )
 
+    // This effect is used to update the document after an item has been edited
+    // There is no additional action to dispatch, therefore dispatch: false is necessary
     @Effect({ dispatch: false })
-    updateTaske = this.actions$.pipe(
+    updateTask = this.actions$.pipe(
         ofType(TaskActions.UPDATE_TASK),
-        switchMap((taskData: TaskActions.AddTask) => {
+        switchMap((taskData: TaskActions.UpdateTask) => {
             return this.http
                 .put(
                     `http://localhost:3000/tasks/${taskData.payload._id}`,
                     {
-                        _id: taskData.payload._id,
+                        //_id: taskData.payload._id,
                         name: taskData.payload.name,
                         description: taskData.payload.description,
                         dueDate: taskData.payload.dueDate,
