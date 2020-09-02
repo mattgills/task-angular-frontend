@@ -6,6 +6,9 @@ export interface State {
     tasks: Task[];
 }
 
+// Set an initial state
+// Typically this should be empty, but has been useful for testing without the backend attached
+// This array will be immediately overwritten if the backend is successfully connected and running
 const initialState: State = {
     tasks: [
         new Task('5f4e71e036d62165d07ac475', 'Create Frontend', 'Using Angular', moment().subtract(1, 'day').format('MM/DD/YYYY'), false),
@@ -15,13 +18,16 @@ const initialState: State = {
 }
 
 export function taskReducer(state = initialState, action: TaskActions.TaskActions) {
+    // Switch case to determine which action type has come through
     switch (action.type) {
         case TaskActions.SET_TASKS:
+            // Return the original state and overwrite the tasks with the Task[] payload
             return {
                 ...state,
                 tasks: [...action.payload]
             }
         case TaskActions.ADD_TASK:
+            // Return the orignial state and add the new Task payload to the tasks array
             return {
                 ...state,
                 tasks: [...state.tasks, action.payload]
@@ -50,6 +56,8 @@ export function taskReducer(state = initialState, action: TaskActions.TaskAction
                 tasks: updatedTasks
             }
         case TaskActions.DELETE_TASK:
+            // Return the original state, with the tasks array overwritten
+            // Use the Array.filter method (returns new array) to remove the deleted task
             return {
                 ...state,
                 tasks: state.tasks.filter(task => {
@@ -57,6 +65,9 @@ export function taskReducer(state = initialState, action: TaskActions.TaskAction
                 })
             }
         default:
+            // If none of above are caught, then return the original state
+            // This will happen for the original FETCH_TASKS action
+            // The FETCH_TASKS action dispatches the SET_TASKS action (on success) in order to change the state
             return state;
     }
 }
